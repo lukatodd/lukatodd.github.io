@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Loitering - Culture Events</title>
   <link href="https://fonts.googleapis.com/css2?family=Caveat&family=DM+Sans&display=swap" rel="stylesheet" />
-  <link rel="shortcut icon" type="image/png" href="logoculture.png">
   <style>
+    /* Global Reset & Box Sizing */
     html, body {
+      overscroll-behavior: none;
       margin: 0;
       padding: 0;
       overflow-x: hidden;
@@ -16,291 +17,201 @@
       scroll-behavior: smooth;
       box-sizing: border-box;
     }
+    *, *::before, *::after { box-sizing: inherit; }
 
-    *, *::before, *::after {
-      box-sizing: inherit;
-    }
-
-    header.hero-header,
-    .events-container,
-    .navbar,
-    main,
-    section {
-      width: 100%;
-      max-width: 100%;
-      overflow-x: hidden;
-    }
-
-    header.hero-header {
-      width: 100%;
-      overflow: hidden;
-      background-color: #fff;
-      margin-top: 72px;
-      margin-bottom: -40px;
-    }
-
-    .hero-image {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
+    /* Navbar */
     .navbar {
-      background-color: #fff;
-      border-bottom: 1px solid lightgray;
-      padding: 13px 20px;
       position: fixed;
-      top: 0;
+      top: 0; left: 0; right: 0;
+      background: #fff;
+      border-bottom: 1px solid lightgray;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 13px 20px;
       z-index: 1000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
+    }
+    .navbar ul { display: flex; list-style: none; margin:0; padding:0; }
+    .navbar li { margin: 0 20px; }
+    .navbar a { text-decoration: none; color: #000; font-size: 1.1rem; }
+
+    /* Hero Section */
+    header.hero-header { padding-top: 72px; }
+    .hero-image { width: 100vw; max-width: 100%; display: block; }
+    .hero-image.mobile { display: none; }
+    @media (max-width: 768px) {
+      .hero-image.desktop { display: none; }
+      .hero-image.mobile  { display: block; }
     }
 
-    .navbar ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .navbar ul li {
-      display: inline-flex;
-      align-items: center;
-      margin: 0 20px;
-    }
-
-    .navbar ul li a {
-      text-decoration: none;
-      color: black;
-      font-size: 20px;
-      padding: 0 10px;
-    }
-
-    .navbar ul li img {
-      height: 45px;
-      width: auto;
-    }
-
+    /* Main Content */
     main {
+      margin-top: 0;
+      padding: 0 10px 60px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 40px;
-      padding: 0 10px 60px;
+      gap: 2rem;
     }
 
+    /* Fluid Typography */
     h1, h2 {
       font-family: 'Caveat', cursive;
-      font-size: 3.5em;
-      color: black;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin: 2rem 0 1rem;
       text-align: center;
     }
 
+    /* Sections Full-Bleed */
     section, #about {
-      width: 100%;
-      padding: 60px 20px;
+      width: 100vw;
+      position: relative;
+      left: 50%; right: 50%;
+      margin-left: -50vw; margin-right: -50vw;
+      padding: 4rem 2rem;
     }
+    section:nth-of-type(even), #about { background: #fad4e2; }
 
-    section:nth-of-type(even), #about {
-      background-color: #fad4e2;
-    }
-
+    /* Responsive Grid for Events */
     .events-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 20px;
     }
+    @media (min-width: 1440px) {
+      .events-container { grid-template-columns: repeat(4, 1fr); }
+    }
 
+    /* Event Card */
     .event-box {
       position: relative;
-      height: 360px;
-      overflow: hidden;
       border-radius: 15px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      display: flex;
-      flex-direction: column;
-      background: white;
-      width: 90%;
-      max-width: 360px;
-      flex-grow: 1;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      height: 360px;
     }
-
-    .event-image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 1;
-    }
-
+    .event-image { width: 100%; height: 100%; object-fit: cover; }
     .event-content-wrapper {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.95);
+      position: absolute; bottom: 0; width: 100%;
+      background: rgba(255,255,255,0.95);
       transform: translateY(60%);
-      transition: transform 0.4s ease;
-      z-index: 2;
+      transition: transform 0.3s ease;
+    }
+    .event-box:hover .event-content-wrapper { transform: translateY(0); }
+    .event-title { font-family: 'Caveat', cursive; font-size: 1.4rem; padding: 1rem; text-align: center; }
+    .event-overlay p { margin: 0; font-size: 1rem; color: #333; }
+
+    /* Hide 4th card on small to medium to avoid odd rows */
+    .hide-on-mobile { display: none; }
+    @media (min-width: 1024px) {
+      .hide-on-mobile { display: block; }
     }
 
-    .event-box:hover .event-content-wrapper {
-      transform: translateY(0);
-    }
-
-    .event-title {
-      font-family: 'Caveat', cursive;
-      font-size: 1.3em;
-      padding: 10px 12px 5px;
-      text-align: center;
-    }
-
-    .event-overlay {
-      padding: 0 12px 12px;
-      text-align: center;
-    }
-
-    .event-overlay p {
-      margin: 0;
-      color: #333;
-      font-size: 0.9em;
-    }
-
+    /* See All Events Button */
     .see-all-button {
-      background-color: black;
-      color: white;
-      font-size: 1em;
-      padding: 12px 20px;
+      background-color: #000;
+      color: #fff;
+      font-size: 1rem;
+      padding: 12px 24px;
       border: none;
       border-radius: 25px;
       cursor: pointer;
-      margin: 20px auto 0;
+      margin: 2rem auto 0;
       display: block;
+      transition: background 0.3s ease;
+    }
+    .see-all-button:hover {
+      background-color: #333;
     }
 
+    /* About Image Constraints */
     #about img {
       max-width: 400px;
-      width: 90%;
+      width: 100%;
       height: auto;
       display: block;
       margin: 0 auto 20px;
       border-radius: 10px;
     }
 
-    #about p {
-      max-width: 700px;
-      margin: 0 auto;
-      line-height: 1.6;
-      padding: 0 20px;
-      text-align: left;
-    }
-
-    #suggestions {
-      width: 100%;
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 40px 20px 0;
-    }
-
+    /* Suggestions Form */
     #suggestions iframe {
       width: 100%;
+      max-width: 760px;
       height: 500px;
       border: none;
-      margin-bottom: -20px;
+      display: block;
+      margin: 0 auto;
     }
 
-    @media (max-width: 768px) {
-      h1, h2 {
-        font-size: 2.2em;
-      }
-      .event-box {
-        height: auto;
-        min-height: 340px;
-      }
-      .navbar ul li a {
-        font-size: 16px;
-      }
-      .event-title {
-        font-size: 1.1em;
-      }
+    /* Footer */
+    footer {
+      width: 100%; background: #f0f0f0;
+      text-align: center; padding: 1.5rem 0;
+      font-size: 0.9rem; color: #555;
     }
   </style>
 </head>
 <body>
   <header class="hero-header" id="home">
-    <img src="loiteringbackground.png" alt="Loitering Hero Image" class="hero-image" />
+    <img src="backgroundwide.webp" alt="Loitering Hero Image" class="hero-image desktop" />
+    <img src="backgroundtall.webp" alt="Loitering Hero Mobile" class="hero-image mobile" />
   </header>
-
   <nav class="navbar">
     <ul>
-      <li><a href="#home"><img src="loiteringlogo.png" alt="Home" /></a></li>
+      <li><a href="#home"><img src="loiteringlogo.webp" alt="Home Logo" /></a></li>
       <li><a href="#events">Events</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#suggestions">Suggestions</a></li>
     </ul>
   </nav>
-
   <main>
-    <section id="events">
-      <h1>Events</h1>
-      <div class="events-container">
-        <div class="event-box">
-          <img src="salome.jpg" alt="Salome Event" class="event-image" />
-          <div class="event-content-wrapper">
-            <div class="event-title">Salome @ Denver Pavilions</div>
-            <div class="event-overlay">
-              <p>Category: Opera<br />Enjoyment: ★★★<br />Attendees: 8</p>
-            </div>
-          </div>
-        </div>
-        <div class="event-box">
-          <img src="rawgroove.jpg" alt="Raw Groove Event" class="event-image" />
-          <div class="event-content-wrapper">
-            <div class="event-title">Raw Groove Dance Lesson + Life of the Party</div>
-            <div class="event-overlay">
-              <p>Category: Dance<br />Enjoyment: ★★<br />Attendees: 4</p>
-            </div>
-          </div>
-        </div>
-        <div class="event-box">
-          <img src="teamlunch.jpg" alt="Team Lunch Event" class="event-image" />
-          <div class="event-content-wrapper">
-            <div class="event-title">Team Lunch @ Welton Street Cafe</div>
-            <div class="event-overlay">
-              <p>Category: Food<br />Enjoyment: ★<br />Attendees: 2</p>
-            </div>
-          </div>
+    <h1 id="events">Events</h1>
+    <div class="events-container">
+      <div class="event-box">
+        <img src="salome.webp" alt="Salome" class="event-image" />
+        <div class="event-content-wrapper">
+          <div class="event-title">Salome @ Denver Pavilions</div>
+          <div class="event-overlay"><p>Category: Opera<br>Enjoyment: ★★★<br>Attendees: 8</p></div>
         </div>
       </div>
-      <button class="see-all-button" onclick="window.location.href='/events'">See All Events</button>
-    </section>
-
+      <div class="event-box">
+        <img src="rawgroove.webp" alt="Raw Groove" class="event-image" />
+        <div class="event-content-wrapper">
+          <div class="event-title">Raw Groove Dance Lesson + Life of the Party</div>
+          <div class="event-overlay"><p>Category: Dance<br>Enjoyment: ★★<br>Attendees: 4</p></div>
+        </div>
+      </div>
+      <div class="event-box">
+        <img src="teamlunch.webp" alt="Team Lunch" class="event-image" />
+        <div class="event-content-wrapper">
+          <div class="event-title">Team Lunch @ Welton Street Cafe</div>
+          <div class="event-overlay"><p>Category: Food<br>Enjoyment: ★<br>Attendees: 2</p></div>
+        </div>
+      </div>
+      <div class="event-box hide-on-mobile">
+        <img src="laflor.webp" alt="La Flor De Mi Secreto" class="event-image" />
+        <div class="event-content-wrapper">
+          <div class="event-title">La Flor De Mi Secreto Screening</div>
+          <div class="event-overlay"><p>Category: Film<br>Enjoyment: ★★★<br>Attendees: 6</p></div>
+        </div>
+      </div>
+    </div>
+    <button class="see-all-button" onclick="window.location.href='events.html'">See All Events</button>
     <section id="about">
-      <h1>About Loitering</h1>
-      <img src="about_image.jpg" alt="Grace holding a big fish" />
-      <p>
-        Grace was a callow freshman flipping through the Harvard coursebook when she came across Loitering. "You will hang out in the vicinity of culture and respond to stuff," the description read. College Grace took her distribution requirement in science. Current Grace is here for artistic vaguery.
-        <br /><br />
-        Grace started loitering around Denver in September 2022 to decouple her creative identity from her day job. It's become a monthly occasion to make time for friends, for intellectual stimulation, and for far-ranging conversations over coffee or cocktails. There's no culture too high or too low for Loitering. It's a book club without the commitment, or the books.
-        <br /><br />
-        In the words of Tricia Waddell, the artist behind Studio Blkbird, quoting Eloghosa Osunde, the author of <em>Vagabonds!</em>, "We will be strange, but we won't be strange alone."
-      </p>
+      <h2>About Loitering</h2>
+      <img src="about_image.webp" alt="Grace holding a big fish" />
+      <p>Grace was a callow freshman flipping through the Harvard coursebook when she came across Loitering... "We will be strange, but we won't be strange alone."</p>
     </section>
-
     <section id="suggestions">
       <h2>Make a Suggestion</h2>
-      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfPCHpzHkJ1_gf_YMK9RckHUk7veOBAaLLU8-mOT-Pc1s8TzQ/viewform?embedded=true">Loading…</iframe>
+      <iframe src="https://docs.google.com/forms/.../viewform?embedded=true"></iframe>
     </section>
   </main>
+  <footer>&copy; 2025 Loitering. All rights reserved.</footer>
 </body>
 </html>
