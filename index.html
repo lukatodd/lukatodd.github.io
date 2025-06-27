@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Loitering - Culture Events</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&family=DM+Sans&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&family=DM+Sans&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <link rel="icon" type="image/webp" href="logoculture.webp" />
   <style>
     /* Global Reset & Box Sizing */
     html, body {
@@ -84,6 +85,9 @@
       .navbar img {
         max-height: 36px;
       }
+      header.hero-header {
+        margin-top: 56px !important; /* Match the mobile navbar height */
+      }
     }
 
     /* Hero Section */
@@ -101,11 +105,11 @@
     /* Main Content */
     main {
       margin-top: 0;
-      padding: 90px 10px 60px; /* Increased top padding to clear navbar */
+      padding: 60px 10px 60px; /* decreased top padding from 120px to 60px */
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2rem;
+      gap: 3.5rem; /* increased gap for more space between sections */
     }
 
     /* Fluid Typography */
@@ -125,7 +129,7 @@
       transform: translateX(-50%);
       margin-left: 0;
       margin-right: 0;
-      padding: 4rem 2rem;
+      padding: 3.5rem 2rem; 
     }
     section:nth-of-type(even), #about { background: #fad4e2; }
     #suggestions { background: #fff !important; } /* Make suggestions section white */
@@ -239,12 +243,12 @@
     .see-all-button {
       background-color: #000;
       color: #fff;
-      font-size: 1rem;
-      padding: 12px 24px;
+      font-size: 1.35rem; /* increased font size */
+      padding: 20px 48px;  /* increased padding */
       border: none;
       border-radius: 25px;
       cursor: pointer;
-      margin: 1.5rem auto 0;
+      margin: 0.5rem auto 0; /* decreased top margin from 1.5rem to 0.5rem */
       display: block;
       transition: background 0.3s ease;
     }
@@ -253,6 +257,9 @@
     }
 
     /* About Image Constraints */
+    #about {
+      margin-top: 1.5rem; /* reduced from 4.5rem to 1.5rem */
+    }
     #about img {
       max-width: 400px;
       width: 100%;
@@ -287,12 +294,12 @@
 </head>
 <body>
   <header class="hero-header" id="home">
-    <img src="backgroundwide.webp" alt="Loitering Hero Image" class="hero-image desktop" />
-    <img src="backgroundtall.webp" alt="Loitering Hero Mobile" class="hero-image mobile" />
+    <img src="backgroundwide.webp" alt="Loitering Hero Image" class="hero-image desktop" fetchpriority="high"/>
+    <img src="backgroundtall.webp" alt="Loitering Hero Mobile" class="hero-image mobile" fetchpriority="high"/>
   </header>
   <nav class="navbar">
     <ul>
-      <li><a href="#home"><img src="loiteringlogo.webp" alt="Home Logo" /></a></li>
+      <li><a href="#home"><img src="loiteringlogo.webp" alt="Home Logo" loading="lazy" width="52" height="52" /></a></li>
       <li><a href="#events">Events</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#suggestions">Suggestions</a></li>
@@ -302,39 +309,39 @@
     <h1 id="events">Events</h1>
     <div class="events-container">
       <div class="event-box">
-        <img src="salome.webp" alt="Salome" class="event-image" />
+        <img src="salome.webp" alt="Salome" class="event-image" loading="lazy" width="350" height="262" />
         <div class="event-content-wrapper">
           <div class="event-title">Salome @ Denver Pavilions</div>
           <div class="event-overlay"><p>Category: Opera</p></div>
         </div>
       </div>
       <div class="event-box">
-        <img src="rawgroove.webp" alt="Raw Groove" class="event-image" />
+        <img src="rawgroove.webp" alt="Raw Groove" class="event-image" loading="lazy" width="350" height="262" />
         <div class="event-content-wrapper">
           <div class="event-title">Raw Groove Dance Lesson + Life of the Party</div>
           <div class="event-overlay"><p>Category: Dance</p></div>
         </div>
       </div>
       <div class="event-box">
-        <img src="teamlunch.webp" alt="Team Lunch" class="event-image" />
+        <img src="teamlunch.webp" alt="Team Lunch" class="event-image" loading="lazy" width="350" height="262" />
         <div class="event-content-wrapper">
           <div class="event-title">Team Lunch @ Welton Street Cafe</div>
           <div class="event-overlay"><p>Category: Food</p></div>
         </div>
       </div>
       <div class="event-box hide-on-medium">
-        <img src="laflor.webp" alt="La Flor De Mi Secreto" class="event-image" />
+        <img src="laflor.webp" alt="La Flor De Mi Secreto" class="event-image" loading="lazy" width="350" height="262" />
         <div class="event-content-wrapper">
           <div class="event-title">La Flor De Mi Secreto Screening</div>
           <div class="event-overlay"><p>Category: Film</p></div>
         </div>
       </div>
     </div>
-    <button class="see-all-button" onclick="window.location.href='events'">See All Events</button>
+    <button class="see-all-button" onclick="window.location.href='events.html'">See All Events</button>
     <section id="about">
       <h1>About Loitering</h1>
       <div class="about-container">
-        <img src="about_image.webp" alt="Grace holding a big fish"/>
+        <img src="about_image.webp" alt="Grace holding a big fish" loading="lazy" width="400" height="300"/>
         <p>
           Grace was a callow freshman flipping through the Harvard coursebook when she came across Loitering. "You will hang out in the vicinity of culture and respond to stuff," the description read. College Grace took her distribution requirement in science. Current Grace is here for artistic vaguery.
           <br /><br />
@@ -346,7 +353,7 @@
     </section>
     <section id="suggestions">
       <h2>Make a Suggestion</h2>
-      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfPCHpzHkJ1_gf_YMK9RckHUk7veOBAaLLU8-mOT-Pc1s8TzQ/viewform?embedded=true" width="640" height="471" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfPCHpzHkJ1_gf_YMK9RckHUk7veOBAaLLU8-mOT-Pc1s8TzQ/viewform?embedded=true" width="640" height="471" frameborder="0" marginheight="0" marginwidth="0">Suggestion Box</iframe>
     </section>
   </main>
   <footer>&copy; 2025 Loitering. All rights reserved.</footer>
