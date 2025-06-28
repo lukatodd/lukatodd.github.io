@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>404 Not Found | Loitering</title>
+  <!-- point this at whatever stylesheet you’re already using on loitering.info -->
+  <link rel="stylesheet" href="/styles/main.css"> 
+  <style>
+    /* Page-specific overrides */
+    body {
+      background: #fff;
+      color: #333;
+      font-family: inherit; /* inherit your site’s font stack */
+    }
+    .error-container {
+      text-align: center;
+      padding: 8rem 1rem;
+    }
+    .error-code {
+      font-size: 10rem;
+      margin: 0;
+      /* match your logo gradient: pink → orange */
+      background: linear-gradient(90deg, #F49BC6, #FEBF60);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .error-message {
+      font-size: 1.5rem;
+      margin: 1rem 0 2rem;
+    }
+    .home-link {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border: 2px solid #333;
+      border-radius: 4px;
+      text-decoration: none;
+      color: #333;
+      transition: background 0.2s;
+    }
+    .home-link:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="logo">
+      <img src="/loiteringlogo.webp" alt="Loitering" height="48">
+    </a>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="/events">Events</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/suggestions">Suggestions</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="error-container">
+    <h1 class="error-code">404</h1>
+    <p class="error-message">
+      Sorry, we can’t find that page.<br>
+      It looks like you’ve wandered off.
+    </p>
+    <a href="/" class="home-link">Take me home</a>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2025 Loitering. All rights reserved.</p>
+  </footer>
+</body>
+</html>
