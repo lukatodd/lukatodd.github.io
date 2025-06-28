@@ -1,73 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>404 Not Found | Loitering</title>
-  <!-- point this at whatever stylesheet you’re already using on loitering.info -->
-  <link rel="stylesheet" href="/styles/main.css"> 
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>404 Not Found</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles/main.css" />
   <style>
-    /* Page-specific overrides */
-    body {
-      background: #fff;
-      color: #333;
-      font-family: inherit; /* inherit your site’s font stack */
-    }
-    .error-container {
-      text-align: center;
-      padding: 8rem 1rem;
-    }
-    .error-code {
-      font-size: 10rem;
+    /* Global Reset & Box Sizing */
+    html, body {
       margin: 0;
-      /* match your logo gradient: pink → orange */
+      padding: 0;
+      overflow-x: hidden;
+      font-family: 'DM Sans', sans-serif;
+      background-color: #FFE4EC;
+      box-sizing: border-box;
+      height: 100%;
+    }
+    *, *::before, *::after { box-sizing: inherit; }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 80px;
+      padding: 16px 20px;
+      z-index: 1000;
+    }
+    .navbar ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+      height: 100%;
+    }
+    .navbar li {
+      margin: 0 20px;
+      display: flex;
+      align-items: center;
+    }
+    .navbar a {
+      text-decoration: none;
+      color: #000;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      height: 100%;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 400;
+    }
+    .navbar img {
+      max-height: 52px;
+      width: auto;
+      display: block;
+    }
+    @media (max-width: 480px) {
+      .navbar {
+        height: 56px;
+        padding: 6px;
+      }
+      .navbar ul li {
+        margin: 0 8px;
+      }
+      .navbar img {
+        max-height: 36px;
+      }
+    }
+
+    /* 404 Content */
+    main {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      min-height: calc(100vh - 80px);
+      margin-top: 80px; /* space for navbar */
+    }
+    .gradient-text {
       background: linear-gradient(90deg, #F49BC6, #FEBF60);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .error-message {
-      font-size: 1.5rem;
-      margin: 1rem 0 2rem;
+    .error-code {
+      font-family: 'Fredoka', sans-serif;
+      font-size: clamp(6rem, 20vw, 12rem);
+      font-weight: 700;
+      margin: 0;
     }
-    .home-link {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      border: 2px solid #333;
-      border-radius: 4px;
+    .error-message {
+      font-family: 'Fredoka', sans-serif;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      margin: 1rem 0 2rem;
+      color: #000;
+    }
+    .btn-primary {
+      background-color: #F49BC6;
+      color: #fff;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.25rem;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 6px;
       text-decoration: none;
-      color: #333;
       transition: background 0.2s;
     }
-    .home-link:hover {
-      background: rgba(0, 0, 0, 0.05);
+    .btn-primary:hover {
+      background-color: #FEBF60;
+    }
+
+    /* Footer */
+    footer {
+      width: 100%;
+      background: transparent;
+      text-align: center;
+      padding: 1.5rem 0;
+      font-size: 0.9rem;
+      color: inherit;
     }
   </style>
 </head>
 <body>
-  <header class="site-header">
-    <a href="/" class="logo">
-      <img src="/loiteringlogo.webp" alt="Loitering" height="48">
-    </a>
-    <nav class="main-nav">
-      <ul>
-        <li><a href="/events">Events</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/suggestions">Suggestions</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main class="error-container">
-    <h1 class="error-code">404</h1>
-    <p class="error-message">
-      Sorry, we can’t find that page.<br>
-      It looks like you’ve wandered off.
-    </p>
-    <a href="/" class="home-link">Take me home</a>
+  <nav class="navbar">
+    <ul>
+      <li><a href="/"><img src="/loiteringlogo.webp" alt="Home Logo" loading="lazy" /></a></li>
+      <li><a href="/events">Events</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/suggestions">Suggestions</a></li>
+    </ul>
+  </nav>
+  <main>
+    <h1 class="error-code gradient-text">404</h1>
+    <p class="error-message">Page not found - no need to loiter here.</p>
+    <a href="/" class="btn-primary">Return Home</a>
   </main>
 
-  <footer class="site-footer">
-    <p>© 2025 Loitering. All rights reserved.</p>
+  <footer>
   </footer>
 </body>
 </html>
